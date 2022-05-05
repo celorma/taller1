@@ -1,0 +1,6 @@
+Computador Notro,1000,45
+collar de gato,1500,14
+Collar de gato Sucio,300,1
+mouse,9000,4
+mousepad departamento de ensananza de las siencias basica,1000,20
+vape capo,23000,15
