@@ -10,7 +10,8 @@ public class App {
 	{
 		String name = null, password = null, mail = null;
 		String option = null;
-		
+		String answer;
+		String block;
 		int size = 100;
 		
 		ClientList clientList = new ClientList(size);
@@ -18,81 +19,110 @@ public class App {
 		SaleList saleList = new SaleList(size);
 		ProductList cart = new ProductList(size);
 		
+		// lectura y los introduce en las clases
 		readClients(clientList);
 		readProducts(productList);
 		readSales(saleList);
 		
 		name = input("Ingrese su nombre de usuario: ");
-		password = input("Ingrese su contraseña: ");
-		
+		password = input("Ingrese su contraseï¿½a: ");
 		Client client = clientList.searchClient(name);		
-		if (client == null) 
+		if (client == null ) 
 		 
 		{
 			System.out.println();
-	    	option = input("¿Desea registrarse? (SI/NO): ");
+	    	option = input("ï¿½Desea registrarse? (SI/NO): ");
 	    	
 	    	if (option.contentEquals("SI")) 
 	    	{
 		    	name = input("Ingrese su nombre de usuario: ");
-		    	password = input("Ingrese su contraseña: ");
-		    	mail = input("Ingrese correo electrónico: ");
+		    	password = input("Ingrese su contraseï¿½a: ");
+		    	mail = input("Ingrese correo electrï¿½nico: ");
 		    	client = new Client(name,password,0,mail);
 				clientList.enterClient(client);
 	    	}
 		}	
 		division();
-		System.out.println(client.getUser()+" "+client.getCredit());
-		
-		//creacion de menu
-		System.out.println("Qué desea hacer?");
-		System.out.println();
-		System.out.println("1.Elegir un producto");
-		System.out.println("2.Cambiar contraseña");
-		System.out.println("3.Ver catálogo de productos");
-		System.out.println("4.Ver saldo");
-		System.out.println("5.Recargar saldo");
-		System.out.println("6.Ver carrito");
-		System.out.println("7.Quitar del carrito");
-		System.out.println("8.Pagar carrito");
-		System.out.println();
-		option = input("Ingrese una opción: ");
-		division();
-		
-		if (option.equals("1"))
+		//menu admin
+		if (name.equals("ADMIN")&& password.equals("NYAXIO")) 
 		{
-			System.out.println("Su saldo actual es: "+client.getCredit());
-		}
-		else if (option.equals("2"))
-		{
-			password = input("ingrese su contraseña ACTUAL: ");
-			int numberOfCharacters = password.length();
-
-			if (client.getPassword().equals(password)) 
+			System.out.println("que desea hacer?");
+			System.out.println();
+			System.out.println("1 Bloquear usuario: ");
+			System.out.println("2 Ver historial de compras: ");
+			System.out.println("3 Agregar producto: ");
+			System.out.println("4 Agregar stock: ");
+			System.out.println("5 Actualizar datos: ");
+			answer = input("ingrese opcion: ");
+			while (!answer.equals("-1"))
 			{
-				String newPassword;
-				newPassword = input("ingresa nueva contraseña ");
-				int newPasword = newPassword.length();
-				
-				if (numberOfCharacters <= newPasword && newPasword < 10) 
-					{
-						client.setPassword(newPassword);
-						
-						System.out.println(client.getPassword());
-					}
+				if (answer.equals("1"))
+				{
+					block = input("ingrese usuario el cual deseas bloquear:");
+					clientList.delete(block);
+					clientList.print();
+					
+				}
+				answer = input("ingrese opcion: ");
 			}
 		}
-		else if (option.equals("5"))
+		//creacion de menu
+		else
 		{
-			int lastCredit = client.getCredit();
-			int newCredit = Integer.parseInt(input("Ingrese la cantidad de saldo que desea agregar: "));
-			newCredit = newCredit + lastCredit;
-			client.setCredit(newCredit);
-			System.out.println(client.getCredit()); 
+			System.out.println("Quï¿½ desea hacer?");
+			System.out.println();
+			System.out.println("1.Elegir un producto");
+			System.out.println("2.Cambiar contraseï¿½a");
+			System.out.println("3.Ver catï¿½logo de productos");
+			System.out.println("4.Ver saldo");
+			System.out.println("5.Recargar saldo");
+			System.out.println("6.Ver carrito");
+			System.out.println("7.Quitar del carrito");
+			System.out.println("8.Pagar carrito");
+			System.out.println();
+			option = input("Ingrese una opciï¿½n: ");
+			division();	
+			while (!option.equals("-1"))
+			{
+				if (option.equals("1"))
+				{
+					System.out.println("Su saldo actual es: "+client.getCredit());
+				}
+				else if (option.equals("2"))
+				{
+					password = input("ingrese su contraseï¿½a ACTUAL: ");
+					int numberOfCharacters = password.length();
+
+					if (client.getPassword().equals(password)) 
+					{
+						String newPassword;
+						newPassword = input("ingresa nueva contraseï¿½a ");
+						int newPasword = newPassword.length();
+						
+						if (numberOfCharacters <= newPasword && newPasword < 10) 
+							{
+								client.setPassword(newPassword);
+								
+								System.out.println(client.getPassword());
+							}
+					}
+				}
+				else if (option.equals("5"))
+				{
+					int lastCredit = client.getCredit();
+					int newCredit = Integer.parseInt(input("Ingrese la cantidad de saldo que desea agregar: "));
+					newCredit = newCredit + lastCredit;
+					client.setCredit(newCredit);
+					System.out.println(client.getCredit()); 
+				}
+				option = input("Ingrese una opciï¿½n: ");
+				clientList.print();
+				
+			}	
 		}
 		
-		clientList.print();
-		
+		productList.printCatalogue();
+
 	}
 	
 	public static void readClients(ClientList clientList) throws FileNotFoundException
@@ -147,4 +177,12 @@ public class App {
 		String variable = scanner.nextLine();
 		return variable;
 	}
+	public static void stuck(ProductList productList, SaleList saleList)
+	{
+		for (int i = 0; i< saleList.length ;i++) {
+			int aux = saleList[i].getAmountSales();
+			
+		}
+	}
+
 }

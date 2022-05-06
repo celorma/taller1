@@ -51,4 +51,27 @@ public class ClientList
 			System.out.println(clientList[i]);
 		}
 	}
+	public boolean delete(String name) {
+		int j;
+		for (j=0;j<amountClients;j++) 
+		{
+			if (clientList[j].getUser().equals(name))
+			{
+				break;
+			}
+		}
+		if (j == amountClients)
+		{
+			return false;
+		}
+		else
+		{
+			for (int k=j;k<amountClients-1;k++)
+			{
+				clientList[k] = clientList[k+1];
+			}
+		}
+		amountClients --;
+		return true;
+	}
 }

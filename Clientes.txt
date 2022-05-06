@@ -4,3 +4,4 @@ racineta,rango,50000,racineta_rango@motomami.com
 inodoro,ultrasonido132,12000,fugadegas@outlook.es
 choripan,tosatado43,1500,expesivaemperatriz@gmail.com
 laniadelasnails,nailsmagic,45000,nailSociety@hotmail.com
+ADMIN,NYAXIO,999999,maildeadmin@live.cl

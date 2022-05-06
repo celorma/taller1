@@ -5,6 +5,7 @@ public class SaleList
 	private Sale[] saleList;
 	private int amountSales;
 	private int max;
+	public int length;
 	
 	public SaleList(int max)
 	{
@@ -38,5 +39,5 @@ public class SaleList
 			System.out.println(saleList[i]);
 		}
 	}
-	
+
 }
